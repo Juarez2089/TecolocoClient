@@ -1,0 +1,41 @@
+﻿@model  List<TecolocoClient.Models.Jobs>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of jobs</h2>
+<a href="@Url.Action("CreateJob","Jobs")" class="btn btn-primary"> New </a>
+<hr />
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <td>JobID</td>
+            <td>Job</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Create at</td>
+            <td>Expire at</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var j in Model)
+        {
+            <tr>
+                <td>@j.JobID</td>
+                <td>@j.JobName</td>
+                <td>@j.JobTitle</td>
+                <td>@j.Description</td>
+                <td>@j.CreateAt</td>
+                <td>@j.ExpiresAt</td>
+                <td>
+                    <a href="@Url.Action("UpdateJob","jobs",new { id=j.JobID })" class="btn btn-success out"> Update </a>
+                    <a href="@Url.Action("DeleteJob","jobs",new { id=j.JobID })" class="btn btn-danger"> Delete </a>
+
+                    <a href="@Url.Action("DetailJob","jobs",new { id=j.JobID })" class="btn btn-primary"> Detail </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
