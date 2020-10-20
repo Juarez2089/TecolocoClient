@@ -27,5 +27,20 @@ namespace TecolocoClient.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult DetailJob(string id)
+        {
+            HttpClient clientHttp = new HttpClient();
+            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            var request = clientHttp.GetAsync("api/Jobs?id=" + id).Result;
+
+            if (request.IsSuccessStatusCode)
+            {
+                var resultString = request.Content.ReadAsStringAsync().Result;
+                var job = JsonConvert.DeserializeObject<Jobs>(resultString);
+                return View(job);
+            }
+            return View();
+        }
     }
 }
