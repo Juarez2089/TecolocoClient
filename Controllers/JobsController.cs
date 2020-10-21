@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using TecolocoClient.Models;
+using System.Net.Http.Formatting;
 
 namespace TecolocoClient.Controllers
 {
@@ -41,6 +42,36 @@ namespace TecolocoClient.Controllers
                 return View(job);
             }
             return View();
+        }
+        [HttpGet]
+        public ActionResult CreateJob()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateJob(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpClient clientHttp = new HttpClient();
+                clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+                var request = clientHttp.PostAsync("api/Jobs", job, new JsonMediaTypeFormatter()).Result;
+
+                if (request.IsSuccessStatusCode)
+                {
+                    var resultString = request.Content.ReadAsStringAsync().Result;
+                    var IsOk = JsonConvert.DeserializeObject<bool>(resultString);
+                    if (IsOk)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    return View(job);
+
+                }
+
+
+            }
+            return View(job);
         }
     }
 }

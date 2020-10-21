@@ -1,0 +1,59 @@
+﻿@model TecolocoClient.Models.Jobs
+@{
+    ViewBag.Title = "CreateJob";
+}
+
+<h2>Add new Job</h2>
+
+<hr />
+
+<form method="post" action="@Url.Action("CreateJob","Jobs")">
+    @*<div class="form-group">
+            <label>IdJob</label>
+            @Html.TextBoxFor(x => x.JobID, new { @class = "form-control" })
+        </div>*@
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Job</label>
+                @Html.TextBoxFor(x => x.JobName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>JobTitle</label>
+                @Html.TextBoxFor(x => x.JobTitle, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Description</label>
+                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @*<div class="form-group">
+            <label>CreateAt</label>
+            @Html.TextBoxFor(x => x.CreateAt, new { @class = "form-control" })
+        </div>*@
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>ExpiresAt</label>
+                @Html.TextBoxFor(x => x.ExpiresAt, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExpiresAt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class=" btn btn-success" value="Create" />
+        <a href="@Url.Action("Index","Jobs")">Return</a>
+    </div>
+
+</form>
