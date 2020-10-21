@@ -1,0 +1,40 @@
+﻿@model TecolocoClient.Models.Jobs
+@{
+    ViewBag.Title = "CreateJob";
+}
+
+<h2>Update Job</h2>
+
+<hr />
+<form method="post" action="@Url.Action("UpdateJob","Jobs")">
+    <div class="form-group">
+        <label>IdJob</label>
+        @Html.TextBoxFor(x => x.JobID, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        <label>Job</label>
+        @Html.TextBoxFor(x => x.JobName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>JobTitle</label>
+        @Html.TextBoxFor(x => x.JobTitle, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>CreateAt</label>
+        @Html.TextBoxFor(x => x.CreateAt, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>ExpiresAt</label>
+        @Html.TextBoxFor(x => x.ExpiresAt, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input type="submit" class=" btn btn-success" value="enviar" />
+        <a href="@Url.Action("Index","Jobs")">Return</a>
+    </div>
+
+</form>

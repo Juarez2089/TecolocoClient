@@ -66,12 +66,62 @@ namespace TecolocoClient.Controllers
                         return RedirectToAction("Index");
                     }
                     return View(job);
-
                 }
+            }
+            return View(job);
+        }
+        [HttpGet]
+        public ActionResult UpdateJob(string id)
+        {
+            HttpClient clientHttp = new HttpClient();
+            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            var request = clientHttp.GetAsync("api/Jobs?id=" + id).Result;
 
+            if (request.IsSuccessStatusCode)
+            {
+                var resultString = request.Content.ReadAsStringAsync().Result;
+                var job = JsonConvert.DeserializeObject<Jobs>(resultString);
+                return View(job);
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdateJob(Jobs job)
+        {
+            HttpClient clientHttp = new HttpClient();
+            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            var request = clientHttp.PutAsync("api/Jobs", job, new JsonMediaTypeFormatter()).Result;
+
+            if (request.IsSuccessStatusCode)
+            {
+                var resultString = request.Content.ReadAsStringAsync().Result;
+                var IsOk = JsonConvert.DeserializeObject<bool>(resultString);
+                if (IsOk)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(job);
 
             }
             return View(job);
+        }
+        [HttpGet]
+        public ActionResult DeleteJob(string id)
+        {
+            HttpClient clientHttp = new HttpClient();
+            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            var request = clientHttp.DeleteAsync("api/Jobs?id=" + id).Result;
+
+            if (request.IsSuccessStatusCode)
+            {
+                var resultString = request.Content.ReadAsStringAsync().Result;
+                var IsOk = JsonConvert.DeserializeObject<bool>(resultString);
+                if (IsOk)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
         }
     }
 }
