@@ -13,10 +13,11 @@ namespace TecolocoClient.Controllers
     public class JobsController : Controller
     {
         // GET: Jobs
+        private static string url="https://localhost:44398/";
         public ActionResult Index()
         {
             HttpClient clientHttp = new HttpClient();
-            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            clientHttp.BaseAddress = new Uri(url);
             var request = clientHttp.GetAsync("api/Jobs").Result;
 
             if (request.IsSuccessStatusCode)
@@ -32,7 +33,7 @@ namespace TecolocoClient.Controllers
         public ActionResult DetailJob(string id)
         {
             HttpClient clientHttp = new HttpClient();
-            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            clientHttp.BaseAddress = new Uri(url);
             var request = clientHttp.GetAsync("api/Jobs?id=" + id).Result;
 
             if (request.IsSuccessStatusCode)
@@ -54,7 +55,7 @@ namespace TecolocoClient.Controllers
             if (ModelState.IsValid)
             {
                 HttpClient clientHttp = new HttpClient();
-                clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+                clientHttp.BaseAddress = new Uri(url);
                 var request = clientHttp.PostAsync("api/Jobs", job, new JsonMediaTypeFormatter()).Result;
 
                 if (request.IsSuccessStatusCode)
@@ -74,7 +75,7 @@ namespace TecolocoClient.Controllers
         public ActionResult UpdateJob(string id)
         {
             HttpClient clientHttp = new HttpClient();
-            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            clientHttp.BaseAddress = new Uri(url);
             var request = clientHttp.GetAsync("api/Jobs?id=" + id).Result;
 
             if (request.IsSuccessStatusCode)
@@ -89,7 +90,7 @@ namespace TecolocoClient.Controllers
         public ActionResult UpdateJob(Jobs job)
         {
             HttpClient clientHttp = new HttpClient();
-            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            clientHttp.BaseAddress = new Uri(url);
             var request = clientHttp.PutAsync("api/Jobs", job, new JsonMediaTypeFormatter()).Result;
 
             if (request.IsSuccessStatusCode)
@@ -109,7 +110,7 @@ namespace TecolocoClient.Controllers
         public ActionResult DeleteJob(string id)
         {
             HttpClient clientHttp = new HttpClient();
-            clientHttp.BaseAddress = new Uri("https://localhost:44398/");
+            clientHttp.BaseAddress = new Uri(url);
             var request = clientHttp.DeleteAsync("api/Jobs?id=" + id).Result;
 
             if (request.IsSuccessStatusCode)
